@@ -22,6 +22,7 @@ class SocksProxy implements PluginInterface
     private string $pluginName;
     private string $templateMain;
     private string $apiKey;
+    private string $serviceName;
     private string $serviceStatus;
 
     public function __construct(string $pluginPath, string $pluginName)
@@ -29,7 +30,8 @@ class SocksProxy implements PluginInterface
         $this->pluginPath = $pluginPath;
         $this->pluginName = $pluginName;
         $this->templateMain = 'main';
-        $this->serviceStatus = 'up';
+        $this->serviceName = 'danted.service';
+        $this->serviceStatus = $this->getServiceStatus();
         $this->apiKey = '';
 
         if ($loaded = self::loadData()) {
@@ -58,6 +60,7 @@ class SocksProxy implements PluginInterface
         $icon = 'fas fa-socks';
         $action = 'plugin__'.$this->getName();
         $priority = 65;
+        $service_name = $this->serviceName;
 
         $sidebar->addItem($label, $icon, $action, $priority);
     }
@@ -75,14 +78,6 @@ class SocksProxy implements PluginInterface
             // Instantiate a StatusMessage object
             $status = new \RaspAP\Messages\StatusMessage;
 
-            /**
-             * Examples of common plugin actions are handled here:
-             * 1. saveSettings
-             * 2. startSampleService
-             * 3. stopSampleService
-             *
-             * Other page actions and custom functions may be added as needed.
-             */
             if (!RASPI_MONITOR_ENABLED) {
                 if (isset($_POST['saveSettings'])) {
                     if (isset($_POST['txtapikey'])) {
@@ -92,44 +87,49 @@ class SocksProxy implements PluginInterface
                             $status->addMessage('Please enter a valid API key', 'warning');
                         } else {
                             $return = $this->saveSampleSettings($status, $apiKey);
-                            $status->addMessage('Restarting sample.service', 'info');
+                            $status->addMessage('Restarting '.$service_name, 'info');
                         }
                     }
 
-                } elseif (isset($_POST['startSampleService'])) {
-                    $status->addMessage('Attempting to start sample.service', 'info');
-                    /* A dummy value is used here for demo purposes.
-                     * One method of fetching a process or service status:
-                     * exec('pidof some_process | wc -l', $return);
-                     * $state = ($return[0] > 0);
-                     * $status = $state ? "up" : "down";
-                     *
-                     * @note "up" and "down" correspond to the .service-status-* CSS classes
-                     */
-                    $this->setServiceStatus('up');
+                } elseif (isset($_POST['startDanteService'])) {
+                    $status->addMessage('Attempting to start '.$this->serviceName, 'info');
+                    exec('sudo /bin/systemctl start '.$this->serviceName, $output, $return);
+                    if ($return == 0) {
+                        $status->addMessage('Successfully started '.$this->serviceName, 'success');
+                        $this->setServiceStatus('up');
+                    } else {
+                        $status->addMessage('Failed to start '.$this->serviceName, 'danger');
+                        $this->setServiceStatus('down');
+                    }
 
-                } elseif (isset($_POST['stopSampleService'])) {
-                    $status->addMessage('Attempting to stop sample.service', 'info');
-                    $this->setServiceStatus('down');
+                } elseif (isset($_POST['stopDanteService'])) {
+                    $status->addMessage('Attempting to stop '.$this->serviceName, 'info');
+                    exec('sudo /bin/systemctl stop '.$this->serviceName, $output, $return);
+                    if ($return == 0) {
+                        $status->addMessage('Successfully stopped '.$this->serviceName, 'success');
+                        $this->setServiceStatus('down');
+                    } else {
+                        $status->addMessage('Failed to stop '.$this->serviceName, 'danger');
+                    }
                 }
             }
 
+            exec('sudo /bin/systemctl status '.$this->serviceName, $output);
+            $serviceLog = implode("\n", $output);
+
             // Populate template data
             $__template_data = [
-                'title' => _('Sample Plugin'),
-                'description' => _('A sample user plugin to extend RaspAP'),
-                'author' => _('A. Plugin Author'),
-                'uri' => 'https://github.com/RaspAP/SamplePlugin',
-                'icon' => 'fas fa-plug', // icon should be the same used for Sidebar
-                'serviceStatus' => $this->getServiceStatus(), // plugin may optionally return a service status
-                'serviceName' => 'sample.service', // an optional service name
-                'action' => 'plugin__'.$this->getName(), // expected by Plugin Manager; do not edit
-                'pluginName' => $this->getName(), // required for template rendering; do not edit
-                // content may be passed in template data or used directly in the parent template and/or child tabs
-                'content' => _('This is content generated by the SamplePlugin.'),
-                // example service log output. this could be replaced with an actual status result such as:
-                // exec("sudo systemctl status sample.service", $output, $return);
-                'serviceLog' => "● sample.service - raspap-sample\n    Loaded: loaded (/lib/systemd/system/sample.service; enabled;)\n    Active: active (running)"
+                'title' => _('Socks Proxy'),
+                'description' => _('A Dante SOCKS Server add-on for RaspAP'),
+                'author' => _('Bill Zimmerman'),
+                'uri' => 'https://github.com/billz/SocksProxy',
+                'icon' => 'fas fa-socks',
+                'serviceStatus' => $this->getServiceStatus(),
+                'serviceName' => $this->serviceName,
+                'action' => 'plugin__'.$this->getName(),
+                'pluginName' => $this->getName(),
+                'content' => _('This is content generated by the SocksProxy Plugin.'),
+                'serviceLog' => $serviceLog
             ];
 
             // update template data from property after processing page actions
@@ -197,7 +197,12 @@ class SocksProxy implements PluginInterface
      */
     public function getServiceStatus()
     {
-        return $this->serviceStatus;
+        exec('sudo /bin/systemctl status '.$service_name, $output, $return);
+        if ($return == 0) {
+            return 'up';
+        } else {
+            return 'down';
+        }
     }
 
     // Setter for service status
