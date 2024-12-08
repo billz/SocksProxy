@@ -41,13 +41,7 @@ class SocksProxy implements PluginInterface
     }
 
     /**
-     * Initializes SamplePlugin and creates a custom sidebar item. This is the entry point
-     * for creating a custom user plugin; the PluginManager will autoload the plugin code.
-     *
-     * Replace 'Sample Plugin' below with the label you wish to use in the sidebar.
-     * You may specify any icon in the Font Awesome 6.6 free library for the sidebar item.
-     * The priority value sets the position of the item in the sidebar (lower values = higher priority).
-     * The page action is handled by the plugin's namespaced handlePageAction() method.
+     * Initialize the SocksProxy plugin and create a sidebar item
      *
      * @param Sidebar $sidebar an instance of the Sidebar
      * @see src/RaspAP/UI/Sidebar.php
@@ -66,7 +60,7 @@ class SocksProxy implements PluginInterface
     }
 
     /**
-     * Handles a page action by processing inputs and rendering a plugin template.
+     * Handle page actions by processing inputs and rendering a plugin template
      *
      * @param string $page the current page route
      */
@@ -197,12 +191,13 @@ class SocksProxy implements PluginInterface
      */
     public function getServiceStatus()
     {
-        exec('sudo /bin/systemctl status '.$service_name, $output, $return);
-        if ($return == 0) {
-            return 'up';
-        } else {
-            return 'down';
+        exec('sudo /bin/systemctl status '.$this->serviceName, $output, $return);
+        foreach ($output as $line) {
+            if (strpos($line, 'Active: active (running)') !== false) {
+                return 'up';
+            }
         }
+    return 'down';
     }
 
     // Setter for service status
@@ -212,14 +207,13 @@ class SocksProxy implements PluginInterface
         $this->persistData();
     }
 
-    /* An example method to persist plugin data
+    /* Persist plugin data
      *
-     * This writes to the volatile /tmp directory which is cleared
-     * on each system boot, so should not be considered as a robust
-     * method of data persistence; it's used here for demo purposes only.
-     *
-     * @note Plugins should avoid use of $_SESSION vars as these are
-     * super globals that may conflict with other user plugins.
+     * This writes serialized data to the volatile /tmp directory which is cleared
+     * on each system boot. For this reason, it should not be used as a method of
+     * permanent data storage. However, this functionality roughly approximates
+     * PHP's $_SESSION object; the difference being that each plugin's data is isolated
+     * from other plugin instances.
      */
     public function persistData()
     {
