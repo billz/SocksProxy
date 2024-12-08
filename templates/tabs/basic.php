@@ -7,18 +7,14 @@
           <?php echo htmlspecialchars($content); ?>
         </div>
       </div>
+
       <div class="row mt-3">
-        <div class="mb-3 col-md-6" required>
-          <label for="txtapikey"><?php echo _("Sample API Key"); ?></label>
-          <div class="input-group __has-validation">
-              <input type="text" class="form-control" id="txtapikey" name="txtapikey" value="<?php echo htmlspecialchars($__template_data['apiKey'], ENT_QUOTES); ?>" __required />
-              <div class="input-group-text" id="gen_apikey"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-              <div class="invalid-feedback">
-                <?php echo _("Please provide a valid API key."); ?>
-              </div>
-          </div>
+        <div class="mb-3 col-md-6">
+          <label for="cbxinterface"><?php echo _("Interface") ;?></label>
+            <?php SelectorOptions('interface', $interfaces, $arrConfig['interface'], 'cbxinterface'); ?>
         </div>
       </div>
+
     </div>
   </div>
 </div><!-- /.tab-pane | basic tab -->
