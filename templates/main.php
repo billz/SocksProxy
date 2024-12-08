@@ -2,9 +2,9 @@
     <?php if (!RASPI_MONITOR_ENABLED) : ?>
     <input type="submit" class="btn btn-outline btn-primary" name="saveSettings" value="<?php echo _("Save settings"); ?>" />
         <?php if ($__template_data['serviceStatus'] == 'down') : ?>
-        <input type="submit" class="btn btn-success" name="startSampleService" value="<?php echo _("Start Sample service"); ?>" />
+        <input type="submit" class="btn btn-success" name="startDanteService" value="<?php echo _("Start Dante service"); ?>" />
         <?php else : ?>
-        <input type="submit" class="btn btn-warning" name="stopSampleService" value="<?php echo _("Stop Sample service"); ?>" />
+        <input type="submit" class="btn btn-warning" name="stopDanteService" value="<?php echo _("Stop Dante service"); ?>" />
         <?php endif; ?>
     <?php endif ?>
   <?php $buttons = ob_get_clean(); ob_end_clean() ?>
@@ -32,9 +32,9 @@
             <?php echo CSRFTokenFieldTag() ?>
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li class="nav-item"><a class="nav-link active" id="samplesettingstab" href="#samplesettings" data-bs-toggle="tab"><?php echo _("Settings"); ?></a></li>
-                <li class="nav-item"><a class="nav-link" id="samplestatustab" href="#samplestatus" data-bs-toggle="tab"><?php echo _("Status"); ?></a></li>
-                <li class="nav-item"><a class="nav-link" id="sampleabouttab" href="#sampleabout" data-bs-toggle="tab"><?php echo _("About"); ?></a></li>
+                <li class="nav-item"><a class="nav-link active" id="danteettingstab" href="#dantesettings" data-bs-toggle="tab"><?php echo _("Settings"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" id="dantestatustab" href="#dantestatus" data-bs-toggle="tab"><?php echo _("Status"); ?></a></li>
+                <li class="nav-item"><a class="nav-link" id="pluginabouttab" href="#pluginabout" data-bs-toggle="tab"><?php echo _("About"); ?></a></li>
             </ul>
 
             <!-- Tab panes -->
