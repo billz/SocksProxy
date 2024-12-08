@@ -31,6 +31,8 @@ Append the following to the end of this file:
 
 ```
 www-data ALL=(ALL) NOPASSWD:/bin/systemctl * danted.service
+www-data ALL=(ALL) NOPASSWD:/bin/cat /etc/danted.conf
+www-data ALL=(ALL) NOPASSWD:/bin/cp /tmp/danted.conf /etc/danted.conf
 ```
 
 Save and exit the file.
