@@ -1,31 +1,21 @@
 <?php
 
 /**
- * SamplePlugin
+ * SOCKS5 Proxy Plugin
  *
- * You may rename SamplePlugin to whatever you like. The PluginManager expects the plugin folder,
- * file, namespace and class to follow the same naming convention. When renaming the SamplePlugin
- * ensure that each of the following uses your new plugin name:
- *
- * plugins/SamplePlugin                          (folder)
- * plugins/SamplePlugin/SamplePlugin.php         (file)
- * namespace RaspAP\Plugins\SamplePlugin         (namespace)
- * class SamplePlugin implements PluginInterface (class)
- *
- * @description A sample user plugin to extend RaspAP's functionality
+ * @description A Dante SOCKS Server add-on for RaspAP 
  * @author      Bill Zimmerman <billzimmerman@gmail.com>
- *              Special thanks to GitHub user @assachs 
- * @license     https://github.com/RaspAP/SamplePlugin/blob/master/LICENSE
+ * @license     https://github.com/billz/SamplePlugin/blob/master/LICENSE
  * @see         src/RaspAP/Plugins/PluginInterface.php
  * @see         src/RaspAP/UI/Sidebar.php
  */
 
-namespace RaspAP\Plugins\SamplePlugin;
+namespace RaspAP\Plugins\SocksProxy;
 
 use RaspAP\Plugins\PluginInterface;
 use RaspAP\UI\Sidebar;
 
-class SamplePlugin implements PluginInterface
+class SocksProxy implements PluginInterface
 {
 
     private string $pluginPath;
@@ -64,8 +54,8 @@ class SamplePlugin implements PluginInterface
     public function initialize(Sidebar $sidebar): void
     {
 
-        $label = _('Sample Plugin');
-        $icon = 'fas fa-plug';
+        $label = _('Socks Proxy');
+        $icon = 'fas fa-socks';
         $action = 'plugin__'.$this->getName();
         $priority = 65;
 
