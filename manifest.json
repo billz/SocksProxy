@@ -6,7 +6,7 @@
   "author_uri": "https://github.com/billz",
   "plugin_uri": "https://github.com/billz/SocksProxy",
   "license": "GPL-3.0",
-  "namespace": "RaspAP\Plugins\SocksProxy",
+  "namespace": "RaspAP\\Plugins\\SocksProxy",
   "configuration": [
     {
       "source": ["config/danted.conf"],
