@@ -1,7 +1,7 @@
 # 🧦 SocksProxy Plugin
 This plugin adds SOCKS v5 proxy server support to RaspAP.
 
-> ⚠️ This plugin is currently in BETA. Please [create an issue](https://github.com/billz/SocksProxy/issues) to report bugs or [start a discussion](https://github.com/billz/SocksProxy/discussions) for anything else. Thanks!
+> ⚠️ The SocksProxy plugin is currently in BETA. Please [create an issue](https://github.com/billz/SocksProxy/issues) to report bugs or [start a discussion](https://github.com/billz/SocksProxy/discussions) for anything else. Thanks!
 
 Proxy servers act as gateway that routes traffic between an end user and an internet resource. In the context of RaspAP, or network routers generally, this provides an additional layer of privacy and security. Likewise, proxies are useful for other purposes such as bypassing geo-restrictions or managing network traffic more efficiently through caching.
 
