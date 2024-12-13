@@ -61,8 +61,8 @@ cd SocksProxy
 sudo cp config/danted.conf /etc/danted.conf
 ```
 
-### Create a Dante user
-For better security, create a dedicated Dante user that doesn't have login privileges: 
+### Create a SOCKS user
+For better security, create a dedicated user to authenticate with Dante that doesn't have login privileges: 
 ```
 sudo useradd -r -s /bin/false danteuser
 sudo passwd danteuser
@@ -70,7 +70,7 @@ sudo passwd danteuser
 The `passwd` command will prompt you for a new password. In the [usage](#usage) example below `sockspass` is used, however you should choose your own secure password.
 
 ## Usage
-Begin by restarting the Dante service from the Socks Proxy plugin UI. This will apply the basic Dante configuration and should start up a functional SOCKS proxy server. Confirm this by checking the service output on the **Status** tab. In the example output below, `danted.service` indicates that it's current state is "active (running)":
+Restart the Dante service from the Socks Proxy plugin UI. This will apply the basic Dante configuration and should start up a functional SOCKS proxy server. Confirm this by checking the service output on the **Status** tab. In the example output below, `danted.service` indicates that its current state is "active (running)":
 
 ```
 ● danted.service - SOCKS (v4 and v5) proxy daemon (danted)
@@ -96,5 +96,3 @@ Output:
 ...
 ```
 The credentials you used for `curl` should work anywhere else you might want to use your proxy server.
-
-
