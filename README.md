@@ -1,7 +1,7 @@
 # 🧦 SocksProxy Plugin
-This plugin will add SOCKS proxy support to RaspAP.
+This plugin adds SOCKS v5 proxy support to RaspAP.
 
-> This plugin is under development and is **not functional** in its present state.
+> This plugin is currently in BETA. Please create an issue for bugs or start a discussion for anything else. Thanks!
 
 ## Contents
  - [Installation](#installation)
