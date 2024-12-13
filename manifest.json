@@ -1,6 +1,6 @@
 {
   "name": "Socks Proxy",
-  "version": "0.1.0-beta",
+  "version": "1.0.0-beta",
   "description": "A SOCKS v5 proxy plugin for RaspAP",
   "author": "Bill Zimmerman",
   "author_uri": "https://github.com/billz",
