@@ -22,6 +22,7 @@ class SocksProxy implements PluginInterface
     private string $pluginName;
     private string $templateMain;
     private string $serviceName;
+    private string $danteConfig;
     private string $serviceStatus;
 
     public function __construct(string $pluginPath, string $pluginName)
