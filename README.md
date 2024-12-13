@@ -59,5 +59,34 @@ cd SocksPlugin
 sudo mv config/danted.conf /etc/danted.conf
 ```
 
+### Create a SOCKS user
+For better security, create a dedicated SOCKS user that doesn't have login privileges: 
+```
+sudo useradd -r -s /bin/false danteuser
+sudo passwd danteuser
+```
+The `passwd` command will prompt you for a new password. In the [usage](#usage) example below `sockspass` is used, however you should choose your own secure password.
+
 ## Usage
-TBD
+Begin by restarting the Dante service from the Socks Proxy plugin UI. This will apply the basic Dante configuration and should start a functional SOCKS proxy server. You may confirm this by checking the service output on the **Status** tab.
+
+With the Dante server running, you may now perform a basic connection test on your local machine. Substitute `danteuser` and `sockspass` for the values you used in the previous step:
+```
+curl -v -x socks5://danteuser:sockspass@0.0.0.0:1080 http://github.com/
+```
+Output:
+```
+*   Trying 0.0.0.0:1080...
+* Connected to 0.0.0.0 (127.0.0.1) port 1080 (#0)
+* SOCKS5 connect to IPv4 140.82.121.3:80 (locally resolved)
+* SOCKS5 request granted.
+* Connected to 0.0.0.0 (127.0.0.1) port 1080 (#0)
+> GET / HTTP/1.1
+> Host: github.com
+> User-Agent: curl/7.88.1
+> Accept: */*
+...
+```
+The credentials you used for `curl` should work anywhere else you might want to use your proxy server.
+
+
