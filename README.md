@@ -1,16 +1,16 @@
 # 🧦 SocksProxy Plugin
-This plugin adds SOCKS v5 proxy support to RaspAP.
+This plugin adds SOCKS v5 proxy server support to RaspAP.
 
 > ⚠️ This plugin is currently in BETA. Please [create an issue](https://github.com/billz/SocksProxy/issues) to report bugs or [start a discussion](https://github.com/billz/SocksProxy/discussions) for anything else. Thanks!
 
-Proxy servers function as gateway that routes traffic between an end user and an internet resource. In the context of RaspAP, or network routers generally, this provides an additional layer of privacy and security. Likewise, proxies are useful for other purposes such as bypassing geo-restrictions or managing network traffic more efficiently with caching.
+Proxy servers act as gateway that routes traffic between an end user and an internet resource. In the context of RaspAP, or network routers generally, this provides an additional layer of privacy and security. Likewise, proxies are useful for other purposes such as bypassing geo-restrictions or managing network traffic more efficiently through caching.
 
 ## Contents
  - [Installation](#installation)
  - [Usage](#usage)
 
 ## Installation
-The `SocksProxy` plugin makes use of [Dante](https://www.inet.no/dante/), a free and open source SOCKS proxy server that implements [RFC 1928](https://datatracker.ietf.org/doc/html/rfc1928) and related standards. Dante provides a great deal of flexibility and can be used for secure network connectivity. This plugin uses the `dante-server` Debian package.
+The `SocksProxy` plugin makes use of [Dante](https://www.inet.no/dante/), a free and open source SOCKS proxy server that implements [RFC 1928](https://datatracker.ietf.org/doc/html/rfc1928) and related standards. Dante provides a great deal of flexibility and is often used in Linux for secure network connectivity. This plugin uses the `dante-server` Debian package. The steps to install Dante and enable the plugin are provided in the next section.
 
 ### Install packages
 Begin by executing the following to update your system packages, then install Dante:
@@ -62,7 +62,7 @@ sudo mv config/danted.conf /etc/danted.conf
 ```
 
 ### Create a SOCKS user
-For better security, create a dedicated SOCKS user that doesn't have login privileges: 
+For better security, create a dedicated Dante user that doesn't have login privileges: 
 ```
 sudo useradd -r -s /bin/false danteuser
 sudo passwd danteuser
@@ -70,7 +70,7 @@ sudo passwd danteuser
 The `passwd` command will prompt you for a new password. In the [usage](#usage) example below `sockspass` is used, however you should choose your own secure password.
 
 ## Usage
-Begin by restarting the Dante service from the Socks Proxy plugin UI. This will apply the basic Dante configuration and should start up a functional SOCKS proxy server. You may confirm this by checking the service output on the **Status** tab.
+Begin by restarting the Dante service from the Socks Proxy plugin UI. This will apply the basic Dante configuration and should start up a functional SOCKS proxy server. Confirm this by checking the service output on the **Status** tab.
 
 With the Dante server running, you may now perform a basic connection test on your local machine. Substitute `danteuser` and `sockspass` for the values you used in the previous step:
 ```
