@@ -9,8 +9,8 @@
   "namespace": "RaspAP\\Plugins\\SocksProxy",
   "configuration": [
     {
-      "source": ["config/danted.conf"],
-      "destination": ["/etc/danted.conf"]
+      "source": "config/danted.conf",
+      "destination": "/etc/danted.conf"
     }
   ],
   "default_locale": "en_US",
