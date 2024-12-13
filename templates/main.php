@@ -5,6 +5,7 @@
         <input type="submit" class="btn btn-success" name="startDanteService" value="<?php echo _("Start Dante service"); ?>" />
         <?php else : ?>
         <input type="submit" class="btn btn-warning" name="stopDanteService" value="<?php echo _("Stop Dante service"); ?>" />
+        <input type="submit" class="btn btn-warning" name="restartDanteService" value="<?php echo _("Restart Dante service"); ?>" />
         <?php endif; ?>
     <?php endif ?>
   <?php $buttons = ob_get_clean(); ob_end_clean() ?>
