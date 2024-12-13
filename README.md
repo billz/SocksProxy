@@ -52,5 +52,12 @@ RaspAP's default application path `/var/www/html` is used here. If you've chosen
    ```
 4. The PluginManager will autoload the plugin; a new 'Socks Proxy' item will appear in the sidebar.
 
+### Apply the Dante configuration
+A streamlined Dante configuration is provided to get the server up and running. Change to the new plugin directory and move this file to its destination. Note that this will overwrite the default Dante config:
+```
+cd SocksPlugin
+sudo mv config/danted.conf /etc/danted.conf
+```
+
 ## Usage
 TBD
