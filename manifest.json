@@ -15,7 +15,7 @@
   ],
   "default_locale": "en_US",
   "dependencies": {
-    "dante-server": ">=1.4.2"
+    "dante-server": "1.4.2"
   },
   "icon": "fas fa-socks",
   "manifest_version": "1.0",
