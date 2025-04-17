@@ -1,6 +1,6 @@
 {
   "name": "Socks Proxy",
-  "version": "v1.0.1-beta",
+  "version": "v1.0.2",
   "description": "A Dante SOCKS v5 proxy server add-on for RaspAP",
   "author": "Bill Zimmerman",
   "author_uri": "https://github.com/billz",
